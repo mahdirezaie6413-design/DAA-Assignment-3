@@ -1,0 +1,8 @@
+Seed: 20261023 (forests use +1; directed graph uses +2).
+Environment: this evaluation container; Python time.perf_counter includes Java process startup, JSON parse and serialization.
+DSU: n=100000, operations/edges=250000, full process wall time=0.569s, PASS: all vertices connected; q=250,000
+kruskal: n=100000, operations/edges=250000, full process wall time=0.791s, PASS: independent MST cost -36988437478880; valid witness
+prim: n=100000, operations/edges=250000, full process wall time=0.569s, PASS: independent MST cost -36988437478880; valid witness
+scc: n=100000, operations/edges=250000, full process wall time=0.811s, PASS: 100,000 singleton SCCs; exact condensation
+topo: n=100000, operations/edges=250000, full process wall time=0.365s, PASS: valid order on a 100,000-deep DAG
+dag: n=100000, operations/edges=250000, full process wall time=0.708s, PASS: distances match independent forward-order DP; valid parents

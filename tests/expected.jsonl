@@ -1,0 +1,36 @@
+{"name":"ping","expected":{"status":"ready"},"why":"Preserve the supplied ping response."}
+{"name":"dsu-empty","expected":{"states":[]},"why":"No vertices implies no operations or states."}
+{"name":"dsu-repeated-self-mixed","expected":{"states":[[4,2],[4,2],[3,3],[2,3],[1,5],[1,5]]},"why":"A repeat or self union changes nothing; the final bridge merges sets sized three and two."}
+{"name":"dsu-singleton","expected":{"states":[[1,1],[1,1]]},"why":"Self operations preserve one component and largest size one."}
+{"name":"dsu-no-ops","expected":{"states":[]},"why":"Do not emit an initial state."}
+{"name":"kruskal-empty","expected":{"cost":0,"components":0},"why":"Zero vertices, zero components."}
+{"name":"prim-empty","expected":{"cost":0,"components":0},"why":"Zero vertices, zero components."}
+{"name":"kruskal-isolates","expected":{"cost":0,"components":5},"why":"All five vertices are isolated components."}
+{"name":"prim-isolates","expected":{"cost":0,"components":5},"why":"All five vertices are isolated components."}
+{"name":"kruskal-parallel-negative-loop-disconnected","expected":{"cost":0,"components":2},"why":"Select ids 1,2,4 with costs -3+2+1=0; ignore loop."}
+{"name":"prim-parallel-negative-loop-disconnected","expected":{"cost":0,"components":2},"why":"Select ids 1,2,4 with costs -3+2+1=0; ignore loop."}
+{"name":"kruskal-equal-weight-triangle","expected":{"cost":2,"components":1},"why":"Any two distinct triangle edges are optimal."}
+{"name":"prim-equal-weight-triangle","expected":{"cost":2,"components":1},"why":"Any two distinct triangle edges are optimal."}
+{"name":"kruskal-large-positive","expected":{"cost":4000000000,"components":1},"why":"Four 10^9 edges require a 64-bit cost."}
+{"name":"prim-large-positive","expected":{"cost":4000000000,"components":1},"why":"Four 10^9 edges require a 64-bit cost."}
+{"name":"kruskal-large-negative","expected":{"cost":-3000000000,"components":1},"why":"Three -10^9 edges require signed 64-bit."}
+{"name":"prim-large-negative","expected":{"cost":-3000000000,"components":1},"why":"Three -10^9 edges require signed 64-bit."}
+{"name":"scc-empty","expected":{"component":[],"condensation":[]},"why":"The empty graph has no SCCs."}
+{"name":"scc-two-cycles-chain","expected":{"component":[0,0,1,1,2],"condensation":[[0,1],[1,2]]},"why":"The SCCs are {0,1}, {2,3}, {4} and cross-links only between adjacent groups."}
+{"name":"scc-self-loops","expected":{"component":[0,1,2],"condensation":[[1,2]]},"why":"Self-loops do not merge distinct vertices into SCCs."}
+{"name":"scc-isolates","expected":{"component":[0,1,2,3],"condensation":[]},"why":"Each isolated vertex is a separate SCC."}
+{"name":"scc-all-one","expected":{"component":[0,0,0],"condensation":[]},"why":"Cycle connects all vertices mutually."}
+{"name":"topo-empty","expected":{"acyclic":true,"order":[]},"why":"Empty DAG has empty order."}
+{"name":"topo-precedence","expected":{"acyclic":true,"order":[0,1,2,3]},"why":"Each edge points forward in the listed valid topological order."}
+{"name":"topo-isolates","expected":{"acyclic":true,"order":[0,1,2,3]},"why":"All permutations of four isolated vertices are valid."}
+{"name":"topo-cycle","expected":{"acyclic":false,"order":[]},"why":"A directed three-cycle makes ordering impossible."}
+{"name":"topo-self","expected":{"acyclic":false,"order":[]},"why":"Self-loop is a directed cycle."}
+{"name":"topo-parallel","expected":{"acyclic":true,"order":[0,1]},"why":"Duplicate edges preserve acyclicity."}
+{"name":"dag-singleton","expected":{"acyclic":true,"distance":[0],"parent_edge":[-1]},"why":"Source is at distance zero with no parent."}
+{"name":"dag-negative-unreachable","expected":{"acyclic":true,"distance":[0,3,-4,0,null],"parent_edge":[-1,0,2,3,-1]},"why":"0->1->2->3 costs 3-7+4=0, vertex 4 unreachable."}
+{"name":"dag-minus-one-finite","expected":{"acyclic":true,"distance":[0,-1,null],"parent_edge":[-1,0,-1]},"why":"Finite -1 differs from null unreachable."}
+{"name":"dag-cycle-unreachable","expected":{"acyclic":false,"distance":[],"parent_edge":[]},"why":"The whole graph must be checked; component 2<->3 is cyclic."}
+{"name":"dag-cycle-self","expected":{"acyclic":false,"distance":[],"parent_edge":[]},"why":"Unreachable self-loop must reject DAG."}
+{"name":"dag-parallel-tied","expected":{"acyclic":true,"distance":[0,2,1,5],"parent_edge":[-1,0,2,4]},"why":"Parallel 0->1 edges tied; path via 1 and direct 0->2 tied."}
+{"name":"dag-source-nonzero","expected":{"acyclic":true,"distance":[null,null,0,-5,-3],"parent_edge":[-1,-1,-1,0,1]},"why":"Source need not be zero; vertices 0 and 1 cannot be reached."}
+{"name":"dag-64-bit","expected":{"acyclic":true,"distance":[0,1000000000,2000000000,3000000000,4000000000],"parent_edge":[-1,0,1,2,3]},"why":"Four edges sum to 4e9, more than signed 32-bit integer."}

@@ -1,11 +1,24 @@
-# Your tests / Ваши тесты
+# Own tests — Assignment 3 (Java 17)
 
-Create your own JSON Lines inputs here, together with expected and actual outputs and an explanation of each test. Run a file from the repository root:
+All test inputs are JSON Lines using the official template contract. The matching `expected.jsonl` contains manually justified **reference** outputs and written reasons, while `actual_outputs.jsonl` contains results of a real run. For nonunique answers, use semantic validity checks; never require identical ID order, SCC labels or tie choices.
+
+From the repository root:
 
 ```sh
-python tools/run.py --input tests/my_cases.jsonl
+python tools/run.py --setup
+python tools/run.py --check
+python tools/run.py --input tests/inputs.jsonl
+python tests/verify_custom.py
+javac --release 17 -cp .build/Java -d .build/Java tests/RouteTest.java
+java -cp .build/Java RouteTest
+python tests/stress_limits.py
+javac --release 17 -cp .build/Java -d .build/Java tests/Benchmark.java
+java -Xmx384m -cp .build/Java Benchmark > tests/benchmark_results.csv 2> tests/benchmark_medians.txt
 ```
 
-Create `my_cases.jsonl` before running this example command. The launcher prints actual results; compare them with independently justified expected answers. Your files are not discovered automatically. Call your route helper directly in your test code. See the root README for all requirements.
+- `verify_custom.py`: 36 cases, plus alternative valid and invalid witnesses, plus 36 mixed requests in one process. It writes `actual_outputs.jsonl`.
+- `RouteTest.java`: directly checks the route helper, including original input edge IDs.
+- `stress_limits.py`: deterministic full-limit 100,000 vertex / 250,000 edge-or-operation inputs, independently checked for six tasks (without checking in multi-megabyte generated inputs). It writes `stress_results.txt`.
+- `Benchmark.java`: three sizes, four warm-ups and seven real nanosecond timings per method and size on identical graphs; writes CSV and medians.
 
-Создайте здесь свои входы JSON Lines, ожидаемые и фактические результаты и объяснения тестов. Команда выше запускает созданный вами файл, но не сравнивает ответы автоматически. Функцию восстановления пути вызывайте непосредственно из своего тестового кода. Полные требования приведены в README в корне репозитория.
+For algorithm steps, correctness proofs, benchmarking environment and outputs, see `../ANALYSIS.md`.

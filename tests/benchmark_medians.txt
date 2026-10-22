@@ -1,0 +1,3 @@
+Medians n=1000 m=4000: Kruskal=1800754 ns Prim=1633973 ns. Both forests verified.
+Medians n=5000 m=20000: Kruskal=17603701 ns Prim=8344318 ns. Both forests verified.
+Medians n=20000 m=80000: Kruskal=22452751 ns Prim=40864655 ns. Both forests verified.
